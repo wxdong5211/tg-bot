@@ -7,7 +7,8 @@ __author__ = 'Invalid'
 from client import client
 
 config = json.load(open("conf/config.json"))
-client.init(config['key'])
+print config['commands']
+client.init(config['host'], config['key'])
 
 class TgBot(threading.Thread):
     """Telegram bot"""
@@ -32,15 +33,14 @@ class TgBot(threading.Thread):
         while not self.stopped():
             time.sleep(1)
             print "Run"
-                # print client.update()
-    # client.send_msg(-14559076, '🌚')
-    # img = open("F:/baka.jpg", 'rb')
-    # client.send_photo(-14559076, img)
+        # print client.update()
+        # client.send_msg(-14559076, '🌚')
+        # img = open("F:/9.jpg", 'rb')
+        # client.send_photo(-14559076, img)
         pass
 
 
 bot = TgBot()
-bot.setDaemon(True)
 
 def start():
     bot.start()

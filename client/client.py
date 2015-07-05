@@ -1,55 +1,51 @@
 __author__ = 'Invalid'
 import requests
 
-host = 'https://api.telegram.org'
-
 
 class TgClient:
     """Telegram Client"""
 
     def __init__(self):
+        self.host = None
         self.token = None
+        self.uri = None
 
-    def init(self, token):
+    def init(self, host, token):
+        self.host = host
         self.token = token
+        self.uri = self.host + '/bot' + self.token + "/"
         pass
 
     def update(self, offset=None):
         data = {}
         if offset is not None:
             data.offset = offset
-        return requests.post(
-            url=host + '/bot' + self.token + "/getUpdates",
-            data=data
-        ).json()
+        return self._send(self.uri + "getUpdates", data)
 
     def send_msg(self, chat_id, text,
                  message_id=None):
         data = {'chat_id': chat_id, 'text': text}
         if message_id is not None:
             data.reply_to_message_id = message_id
-        return requests.post(
-            url=host + '/bot' + self.token + "/sendMessage",
-            data=data
-        ).json()
+        return self._send(self.uri + "sendMessage", data)
 
     def send_photo(self, chat_id, photo,
                    message_id=None):
         data = {'chat_id': chat_id}
         if message_id is not None:
             data.reply_to_message_id = message_id
-        return requests.post(
-            url=host + '/bot' + self.token + "/sendPhoto",
-            data=data,
-            files={'photo': photo}
-        ).json()
+        return self._send(self.uri + "sendPhoto", data, files={'photo': photo})
+
+    @staticmethod
+    def _send(uri, data, **kwargs):
+        return requests.post(url=uri, data=data, **kwargs).json()
 
 
 client = TgClient()
 
 
-def init(token):
-    client.init(token)
+def init(host, token):
+    client.init(host, token)
     pass
 
 
