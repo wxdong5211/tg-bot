@@ -54,8 +54,8 @@ def inline_battery(bot, update):
             results.append(
                 InlineQueryResultArticle(
                     id=uuid4(),
-                    title='特工电量剩余：+∞',
-                    input_message_content=InputTextMessageContent('特工电量剩余：+∞')))
+                    title='淦tmd小海豹',
+                    input_message_content=InputTextMessageContent('小海豹真好啊(ﾟ∀。)')))
             bot.answerInlineQuery(
                 update.inline_query.id,
                 results=results,
