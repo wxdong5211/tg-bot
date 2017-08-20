@@ -94,7 +94,7 @@ def main(token, url, path):
     dp.add_handler(InlineQueryHandler(inline_battery))
 
     # updater.start_polling()
-    updater.start_webhook(listen="0.0.0.0", port=15000, url_path=path)
+    updater.start_webhook(listen="0.0.0.0", port=443, url_path=path)
     updater.bot.setWebhook("https://{}/{}".format(url, path))
     updater.idle()
 
