@@ -102,5 +102,5 @@ if __name__ == "__main__":
     t = os.getenv('TG_TOKEN')
     url = os.getenv('TG_URL')
     path = os.getenv('TG_PATH')
-    cert = os.getenv('TG_PATH')
+    cert = os.getenv('TG_CERT')
     main(t, url, path, cert)
