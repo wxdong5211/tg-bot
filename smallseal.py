@@ -86,7 +86,7 @@ def test(bot, update):
     return str(update)
 
 
-def main(token, url, path):
+def main(token, url, path, cert):
     updater = Updater(token)
     dp = updater.dispatcher
     dp.add_handler(CommandHandler('test', test))
@@ -95,11 +95,12 @@ def main(token, url, path):
 
     # updater.start_polling()
     updater.start_webhook(listen="0.0.0.0", port=15000, url_path=path)
-    updater.bot.setWebhook("https://{}/{}".format(url, path))
+    updater.bot.setWebhook("https://{}/{}".format(url, path), open(cert, 'rb'))
     updater.idle()
 
 if __name__ == "__main__":
     t = os.getenv('TG_TOKEN')
     url = os.getenv('TG_URL')
     path = os.getenv('TG_PATH')
-    main(t, url, path)
+    cert = os.getenv('TG_PATH')
+    main(t, url, path, cert)
